@@ -16,7 +16,7 @@ export default function EditPWDScreen({ route, navigation }) {
       const res = await api.get(`/SavedPWD/${id}`);
       setAccount(res.data.account);
       setDescription(res.data.description || "");
-      setSourceName(res.data.sourceName);
+      setSourceName(res.data.source);
     } catch (err) {
       console.log(err);
       Alert.alert("Error", "Failed to load password");
