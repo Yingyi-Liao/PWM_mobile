@@ -23,16 +23,15 @@ export default function EditPWDScreen({ route, navigation }) {
     }
   };
 
-  // Reveal password (POST)
-  const reveal = async () => {
-    try {
-      const res = await api.post(`/SavedPWD/${id}/reveal`);
-      setPassword(res.data.password);
-    } catch (err) {
-      console.log(err);
-      Alert.alert("Error", "Failed to reveal password");
-    }
-  };
+  const generatePassword = () => {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%";
+      let pwd = "";
+      for (let i = 0; i < 16; i++) {
+      pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      setPassword(pwd);
+    };
+
 
   // Save changes
   const save = async () => {
@@ -106,8 +105,8 @@ export default function EditPWDScreen({ route, navigation }) {
         secureTextEntry={password === ""}
         style={{ borderWidth: 1, padding: 10, marginBottom: 12 }}
       />
-
-      <Button title="Reveal Password" onPress={reveal} />
+      
+      <Button title="Generate Password" onPress={generatePassword} />
 
       <TextInput
         placeholder="Description"

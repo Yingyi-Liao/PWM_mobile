@@ -63,7 +63,8 @@ export default function SavedPWDScreen({ navigation }) {
 
 const renderItem = ({ item }) => (
   <View style={{ padding: 16, borderBottomWidth: 1 }}>
-    <Text style={{ fontSize: 18, marginBottom: 8 }}>{item.account}</Text>
+    <Text style={{ fontSize: 18, marginBottom: 8 }}>Source: {item.source}</Text>
+    <Text style={{ fontSize: 18, marginBottom: 8 }}>Account: {item.account}</Text>
 
     <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
       

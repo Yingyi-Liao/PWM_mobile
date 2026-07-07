@@ -1,22 +1,25 @@
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
-import { AuthContext } from "../auth/AuthContext";
-import { useContext } from "react";
 
-const api = axios.create({
-  baseURL: "http://CL-YL:5000/api",
-});
+const api = axios.create();
 
-// Request interceptor
+// Inject baseURL dynamically before every request
 api.interceptors.request.use(async (config) => {
+  const server = await SecureStore.getItemAsync("serverAddress");
+  if (!server) {
+    throw new Error("Server address not set");
+  }
+
+  config.baseURL = `${server}/api`;
+
   const token = await SecureStore.getItemAsync("jwt");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
   return config;
 });
 
-// Response interceptor
 api.interceptors.response.use(
   (res) => res,
   async (err) => {
